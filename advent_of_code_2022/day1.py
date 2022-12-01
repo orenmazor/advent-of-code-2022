@@ -20,7 +20,12 @@ def total_calories_per_elf(inventory: str) -> Dict[str, int]:
     """Accept a raw input and convert it to per-elf."""
     elf_inventory = parse_elf_inventory(inventory)
 
-    return {elf_id: sum(inventory) for elf_id, inventory in elf_inventory.items()}
+    elves = {elf_id: sum(inventory) for elf_id, inventory in elf_inventory.items()}
+
+    # sort the dictionary keys
+    sorted_elves = reversed(sorted(elves.items(), key=lambda elf: elf[1]))
+
+    return dict(sorted_elves)
 
 
 def elf_with_max_calories(inventory: str) -> Tuple[str, int]:
