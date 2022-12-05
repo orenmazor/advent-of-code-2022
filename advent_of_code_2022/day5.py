@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from collections import defaultdict
 from itertools import islice
 
@@ -40,3 +40,16 @@ def parse_stacks(stacks_raw: str) -> Dict[str, List[str]]:
         normalized_stacks[idx] = col[1]
 
     return normalized_stacks
+
+
+def parse_moves(moves_raw: str) -> List[Tuple[int, int, int]]:
+    """We receive sentences in the form of move 3 from 1 to 3.
+
+    convert these to a list of tuples we can understand.
+    """
+    moves_parsed = []
+    for move in moves_raw.split("\n"):
+        move = move.replace("move", "").replace("from", "").replace("to", "")
+        moves_parsed.append(tuple([int(step) for step in move.split()]))
+
+    return moves_parsed
