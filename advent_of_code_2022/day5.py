@@ -60,16 +60,27 @@ def parse_moves(moves_raw: str) -> List[Tuple[int, int, int]]:
     return moves_parsed
 
 
-def apply_move(stack: dict, move: tuple) -> Dict[str, List[str]]:
+def apply_move(
+    stack: dict, move: tuple, crate_mover_version: int = 9000
+) -> Dict[str, List[str]]:
     """Accept a parsed stack and a tuple indictating a move.
 
     The move is always in the form of (1,2,3)
     meaning that we want to move 1 create from stack 2 to stack 3.
     """
+    source = move[1]
+    dest = move[2]
+
+    crates_in_motion = []
     for crate in range(move[0]):
-        source = move[1]
-        dest = move[2]
-        stack[dest].append(stack[source].pop())
+        crates_in_motion.append(stack[source].pop())
+
+    match crate_mover_version:
+        case 9000:
+            stack[dest] = stack[dest] + crates_in_motion
+        case 9001:
+            crates_in_motion.reverse()
+            stack[dest] = stack[dest] + crates_in_motion
 
     return stack
 
@@ -79,12 +90,14 @@ def get_stack_tops(stack: Dict[str, List[str]]) -> str:
     return "".join([crates[1][-1] for crates in stack.items()])
 
 
-def apply_all_moves(raw_input: str) -> Dict[str, List[str]]:
+def apply_all_moves(
+    raw_input: str, crate_mover_version: int = 9000
+) -> Dict[str, List[str]]:
     """parse a raw stack and apply all raw moves."""
     stack = parse_stacks(raw_input)
     moves = parse_moves(raw_input)
 
     for move in moves:
-        stack = apply_move(stack, move)
+        stack = apply_move(stack, move, crate_mover_version)
 
     return stack

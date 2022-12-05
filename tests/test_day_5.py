@@ -64,3 +64,11 @@ def test_day5_main():
     result = apply_all_moves(example_input)
 
     assert "TLFGBZHCN" == get_stack_tops(result)
+
+
+def test_day5_main_with_createmover_9001():
+    """The actual part 1."""
+    example_input = open("tests/inputs/day5.txt").read()
+    result = apply_all_moves(example_input, crate_mover_version=9001)
+
+    assert "QRQFHFWCL" == get_stack_tops(result)
