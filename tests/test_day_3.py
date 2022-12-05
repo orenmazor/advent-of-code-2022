@@ -59,4 +59,4 @@ CrZsJsPPZsGzwwsLwLmpwMDw"""
 def test_day_3_real_thing_grouping():
 
     example = open("tests/inputs/day3.txt").read()
-    assert 157 == sum_badges(example)
+    assert 2825 == sum_badges(example)
