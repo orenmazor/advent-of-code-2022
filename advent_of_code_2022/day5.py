@@ -21,6 +21,8 @@ def parse_stacks(stacks_raw: str) -> Dict[str, List[str]]:
     stacks = defaultdict(list)
 
     for row in stacks_raw.split("\n"):
+        if "move" in row:
+            continue
         for idx, container in enumerate(row):
             if container.isalpha():
                 stacks[idx].append(container)
@@ -49,7 +51,40 @@ def parse_moves(moves_raw: str) -> List[Tuple[int, int, int]]:
     """
     moves_parsed = []
     for move in moves_raw.split("\n"):
+        if "move" not in move:
+            continue
+
         move = move.replace("move", "").replace("from", "").replace("to", "")
         moves_parsed.append(tuple([int(step) for step in move.split()]))
 
     return moves_parsed
+
+
+def apply_move(stack: dict, move: tuple) -> Dict[str, List[str]]:
+    """Accept a parsed stack and a tuple indictating a move.
+
+    The move is always in the form of (1,2,3)
+    meaning that we want to move 1 create from stack 2 to stack 3.
+    """
+    for crate in range(move[0]):
+        source = move[1]
+        dest = move[2]
+        stack[dest].append(stack[source].pop())
+
+    return stack
+
+
+def get_stack_tops(stack: Dict[str, List[str]]) -> str:
+    """Get the top of the stack view."""
+    return "".join([crates[1][-1] for crates in stack.items()])
+
+
+def apply_all_moves(raw_input: str) -> Dict[str, List[str]]:
+    """parse a raw stack and apply all raw moves."""
+    stack = parse_stacks(raw_input)
+    moves = parse_moves(raw_input)
+
+    for move in moves:
+        stack = apply_move(stack, move)
+
+    return stack
