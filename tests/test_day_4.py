@@ -1,6 +1,7 @@
 from advent_of_code_2022.day4 import (
     unpack_section,
     find_all_overlaps,
+    find_any_overlaps,
     unpack_section_pair,
     check_for_section_overlap,
 )
@@ -22,3 +23,8 @@ def test_section_overlap():
 def test_day4_part_1():
     overlaps = find_all_overlaps(open("tests/inputs/day4.txt").read())
     assert 459 == len(overlaps)
+
+
+def test_day4_part_2():
+    overlaps = find_any_overlaps(open("tests/inputs/day4.txt").read())
+    assert 779 == len(overlaps)
