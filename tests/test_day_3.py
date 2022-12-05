@@ -6,6 +6,8 @@ from advent_of_code_2022.day3 import (
     sum_priorities,
 )
 
+from advent_of_code_2022.day3part2 import sum_badges
+
 
 def test_day_3_pockets():
     assert ("foo", "bar") == pockets("foobar")
@@ -41,3 +43,20 @@ CrZsJsPPZsGzwwsLwLmpwMDw"""
 def test_day_3_real_thing():
     example = open("tests/inputs/day3.txt").read()
     assert 7889 == sum_priorities(example)
+
+
+def test_day_3_example_grouping():
+    example = """vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw"""
+
+    assert 70 == sum_badges(example)
+
+
+def test_day_3_real_thing_grouping():
+
+    example = open("tests/inputs/day3.txt").read()
+    assert 157 == sum_badges(example)
