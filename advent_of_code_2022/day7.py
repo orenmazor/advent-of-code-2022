@@ -1,5 +1,15 @@
 """Day 7: the one with the fs."""
 from collections import defaultdict
+from typing import Dict
+
+
+def find_closest(dirs: Dict[str, int], target: int):
+    """fuck it. ship it."""
+    sorted_dirs = sorted(dirs.items(), key=lambda x: x[1])
+
+    for directory, size in sorted_dirs:
+        if size >= target:
+            return (directory, size)
 
 
 def parse_shell(steps: str):
