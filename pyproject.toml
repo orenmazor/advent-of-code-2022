@@ -9,6 +9,8 @@ packages = [{include = "advent_of_code_2022"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 pytest = "^7.2.0"
+pyyaml = "^6.0"
+ruamel-yaml = "^0.17.21"
 
 
 [tool.poetry.group.dev.dependencies]
